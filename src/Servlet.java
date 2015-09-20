@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.URL;
 
 import javax.servlet.ServletException;
@@ -30,7 +32,11 @@ public class Servlet extends HttpServlet{
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
         System.out.println("YOU HAVE GOTTEN TO DOGET"); 
-        getURLContents(flightAwareURL);
+        String FLIGHT_STATUS = getURLContents(flightAwareURL);
+        BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
+        out.write(FLIGHT_STATUS);
+        out.flush();
+        out.close();
         
         
         response.setContentType("test/html"); 
