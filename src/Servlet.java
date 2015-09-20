@@ -29,17 +29,21 @@ public class Servlet extends HttpServlet{
         System.out.println("WOOHOO I got into servlet"); 
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        System.out.println("YOU HAVE GOTTEN TO DOGET"); 
+        getURLContents(flightAwareURL);
+        
+        
         response.setContentType("test/html"); 
         response.getWriter().println("you have reached doGet()."); 
     }
     protected void doPost(HttpServletRequest request, HttpServlet response) throws ServletException, IOException{
         System.out.println("you have reached doPost()."); 
-        getURLContents(flightAwareURL); 
+         
         }
     
     @SuppressWarnings("finally")
     private static String getURLContents(String flightAwareURLString) throws IOException{
-        StringBuilder content = new StringBuilder();
+        StringBuilder flightStatus = new StringBuilder();
         try{
         
         System.out.println("you have reached getURLContents()"); 
@@ -49,13 +53,18 @@ public class Servlet extends HttpServlet{
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(URLConnection.getInputStream()));
         String line;
         // read from the urlconnection via the bufferedreader
+        int lineCounter=0;
         while ((line = bufferedReader.readLine()) != null)
         {
-          content.append(line + "\n");
-        }
+          lineCounter++; 
+          if (lineCounter==205){
+              flightStatus.append(line.substring(543, 552));
+          
+        }}
         bufferedReader.close();
         }finally{
-            return content.toString(); 
+            System.out.println(flightStatus.toString());
+            return flightStatus.toString(); 
             }
     }}
     
